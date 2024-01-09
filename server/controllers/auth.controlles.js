@@ -1,5 +1,8 @@
+import { createError } from "../error.js";
 import UserModel from "./../models/user.models.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 const signupControllers = async (req, res, next) => {
   // console.log(req.body)
   try {
@@ -15,4 +18,36 @@ const signupControllers = async (req, res, next) => {
   }
 };
 
-export { signupControllers };
+// sign in controller
+const signinControllers = async (req, res, next) => {
+  // console.log(req.body)
+  try {
+    const user = await UserModel.findOne({ name: req.body.name });
+    if (!user) {
+      return next(createError(404, "User not found!"));
+    }
+    // now compare password..
+    const isCorrectPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!isCorrectPassword) {
+      return next(createError(400, "wrong credentials"));
+    }
+    const token = jwt.sign({ id: user._id }, process.env.JWT);
+
+    //not send password
+    const { password, ...others } = user._doc;
+
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .send({ success: true, others });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signupControllers, signinControllers };

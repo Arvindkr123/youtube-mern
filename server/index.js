@@ -5,9 +5,11 @@ import userRoutes from "./routes/users.routes.js";
 import videoRoutes from "./routes/videos.routes.js";
 import commentRoutes from "./routes/comments.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 
 // routes
