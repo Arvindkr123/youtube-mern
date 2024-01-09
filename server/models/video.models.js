@@ -42,5 +42,5 @@ const VideoSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const VideoModel = mongoose.Model("Video", VideoSchema);
+const VideoModel = mongoose.model("Video", VideoSchema);
 export default VideoModel;
