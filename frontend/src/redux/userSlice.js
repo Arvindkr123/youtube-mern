@@ -26,9 +26,21 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = false;
     },
+    subscription: (state, action) => {
+      if (state.current_user.others.subscribedUsers.includes(action.payload)) {
+        state.current_user.others.subscribedUsers.splice(
+          state.current_user.others.subscribedUsers.findIndex(
+            (userId) => userId === action.payload
+          ),
+          1
+        );
+      } else {
+        state.current_user.others.subscribedUsers.push(action.payload);
+      }
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFail, logout } =
+export const { loginStart, loginSuccess, loginFail, logout, subscription } =
   userSlice.actions;
 export default userSlice.reducer;
