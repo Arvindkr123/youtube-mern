@@ -84,8 +84,8 @@ const Navbar = () => {
           <>
             <User>
               <VideoCallOutlinedIcon />
-              <Avatar />
-              {current_user.others.name}
+              <Avatar src={current_user.img} alt="user image" />
+              {current_user.name}
             </User>
           </>
         ) : (

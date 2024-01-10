@@ -15,7 +15,7 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     img: {
       type: String,
@@ -26,6 +26,10 @@ const UserSchema = new Schema(
     },
     subscribedUsers: {
       type: [String],
+    },
+    fromGoogle: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

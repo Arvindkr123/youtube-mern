@@ -90,12 +90,12 @@ const trendVideosViewsController = async (req, res, next) => {
 
 const subscribeVideosController = async (req, res, next) => {
   try {
-    console.log(req.user);
+    // console.log(req.user);
     const user = await UserModel.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
     const list = await Promise.all(
-      subscribedChannels.map((channelId) => {
-        return VideoModel.find({ userId: channelId });
+      subscribedChannels.map(async (channelId) => {
+        return await VideoModel.find({ userId: channelId });
       })
     );
     res.status(200).send(list.flat().sort((a, b) => a.createdAt - b.createdAt));
