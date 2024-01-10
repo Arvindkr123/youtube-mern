@@ -22,7 +22,7 @@ const videoSlice = createSlice({
       state.loading = false;
     },
     likeVideo: (state, action) => {
-      if (!state.currentVideo.likes.inclues(action.payload)) {
+      if (!state.currentVideo.likes.includes(action.payload)) {
         // if you have not like then like the video
         state.currentVideo.likes.push(action.payload);
         // and remove the id from dislike
@@ -35,7 +35,7 @@ const videoSlice = createSlice({
       }
     },
     dislikeVideo: (state, action) => {
-      if (!state.currentVideo.dislikes.inclues(action.payload)) {
+      if (!state.currentVideo.dislikes.includes(action.payload)) {
         // then dislike the video
         state.currentVideo.dislikes.push(action.payload);
         // or remove the id from likes array
